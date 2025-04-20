@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 // Initialize Appwrite client
 const client = new Client()
-  .setEndpoint('https://fra.cloud.appwrite.io/v1')
+  .setEndpoint('https://cloud.appwrite.io/v1')
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || '');
 
 const account = new Account(client);
@@ -40,7 +40,6 @@ function ChatContent() {
         const session = await account.getSession('current');
         if (session) {
           const user = await account.get();
-          console.log('Session found:', session.$id);
           setUserId(user.$id);
           setIsAuthenticated(true);
           setIsAuthChecking(false);
@@ -53,7 +52,6 @@ function ChatContent() {
       // If no session found, try to get the user directly
       try {
         const user = await account.get();
-        console.log('User found:', user.$id);
         setUserId(user.$id);
         setIsAuthenticated(true);
       } catch (error) {
