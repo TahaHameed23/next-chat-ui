@@ -60,11 +60,11 @@ function ChatContent() {
         console.error('Authentication error:', error);
         setIsAuthenticated(false);
         // Only redirect if we're not in demo mode
-        if (!isDemoMode) {
-          // Redirect to dashboard with return URL
-          const currentUrl = encodeURIComponent(window.location.href);
-          window.location.href = `https://dash.datafloww.me/login?returnTo=${currentUrl}`;
-        }
+        // if (!isDemoMode) {
+        //   // Redirect to dashboard with return URL
+        //   const currentUrl = encodeURIComponent(window.location.href);
+        //   window.location.href = `https://dash.datafloww.me/login?returnTo=${currentUrl}`;
+        // }
       } finally {
         setIsAuthChecking(false);
       }
