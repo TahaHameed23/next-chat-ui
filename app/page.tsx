@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Client, Account } from 'appwrite';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ interface Message {
   content: string;
 }
 
-export default function Chat() {
+function ChatContent() {
   const searchParams = useSearchParams();
   const isDemoMode = searchParams.get('mode') === 'demo';
 
@@ -222,5 +222,24 @@ export default function Chat() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Chat() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
+        <div className="p-8 bg-white rounded-lg shadow-md flex flex-col items-center">
+          <div className="flex space-x-2 mb-4">
+            <div className="w-2.5 h-2.5 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+            <div className="w-2.5 h-2.5 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+            <div className="w-2.5 h-2.5 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <ChatContent />
+    </Suspense>
   );
 }
